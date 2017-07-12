@@ -1,6 +1,7 @@
 package RFQ_DRAFT;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.List;
@@ -351,9 +352,14 @@ public class DFR_1 {
 		
 		System.out.println("=================Executing DRF_1_6====================");
 		
-		driver.findElement(By.id("form_rfqSubmission:basicDetails_soldToCustomerNumber")).getText().equals(RFQ.QUOTE[1][6]);
+		if((driver.findElement(By.id("form_rfqSubmission:basicDetails_soldToCustomerNumber")).getText().equals(RFQ.QUOTE[1][6]))==true)
 		
+		ATUReports.add("After returning to RFQ submission page", true);
 		
+		else{
+		assertFalse(1==2);
+		ATUReports.add("After returning to RFQ submission page", true);
+		}
 	}
 	
 	
