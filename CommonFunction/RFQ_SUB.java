@@ -3,6 +3,7 @@ package CommonFunction;
 public class  RFQ_SUB {
 	
 	public static final String MASTER_FILE = "C:\\Users\\045313\\Desktop\\Webtesting\\data\\AutoTest\\Setup_Data\\WebQuote_Data.xlsx";
+	public static final String MASTER_FILE_QC = "C:\\Users\\045313\\Desktop\\Workspace\\TestNG_WebTest\\src\\WebQuote_Data_QC.xlsx";
 	public static final String USERFILE = "C:\\Users\\045313\\Desktop\\Webtesting\\workspace\\0609WebTest\\src\\WQ-Users.xlsx";
 	public static final String LOGIN_SHEETNAME_SALES = "User_sales";
 	public static final String LOGIN_SHEETNAME_CS = "User_CS";
@@ -19,6 +20,7 @@ public class  RFQ_SUB {
 	public static final String TEST_SHEETNAME = "Test_Results";
 
 	public static final String PRICER = "C:\\Users\\045313\\Desktop\\Webtesting\\data\\AutoTest\\GTS_PR_UPLOAD\\pricer_15_records.xlsx";
+	public static final String QC_PRICER = "C:\\Users\\045313\\Desktop\\Workspace\\TestNG_WebTest\\src\\pricer_qc.xlsx";
 	
 	public static final String DOWNLOADFILE = "C:\\Users\\045313\\Downloads\\Download.xlsx";
 	public static final String DOWNLOADSHEET = "Sheet0";

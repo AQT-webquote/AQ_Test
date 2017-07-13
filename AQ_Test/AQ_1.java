@@ -334,20 +334,6 @@ public class AQ_1{
 					 }
 					 System.out.println("Selected ");
 
-					
-					
-					 // operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+(i)+":requiredPartNumber_in_input']", " ");
-
-					// operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+(i)+":requiredPartNumber_in_input']", "\u0008");
-
-					 /*
-					 					 Thread.sleep(5000);
-					 
-
-					 if(!(driver.findElement(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":requiredPartNumber_in_panel']/ul/li[1]")).isDisplayed()))
-					 break; 
-					 */
-					
 					 // wait until drop down menu displayed again
 					 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":requiredPartNumber_in_panel']/ul/li[1]")));
 					 System.out.println("awaiting auto complete jquery");
