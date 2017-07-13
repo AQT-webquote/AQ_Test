@@ -1,7 +1,5 @@
 package CommonFunction;
 
-import AQ_test.AQ_1;
-
 public class  RFQ_SUB {
 	
 	public static final String MASTER_FILE = "C:\\Users\\045313\\Desktop\\Webtesting\\data\\AutoTest\\Setup_Data\\WebQuote_Data.xlsx";

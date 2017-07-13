@@ -44,7 +44,7 @@ public class NPR_v01 {
 				
 				//upload button
 				
-				driver.findElement(By.id("uploadProgramItem:j_idt86")).sendKeys(RFQ.PRICER);
+				driver.findElement(By.id("uploadProgramItem:j_idt86")).sendKeys(RFQ_SUB.PRICER);
 				
 				driver.findElement(By.id("uploadProgramItem:j_idt87")).click();
 				

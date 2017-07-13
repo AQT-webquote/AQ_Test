@@ -1,7 +1,6 @@
 package AQ_test;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -110,7 +109,7 @@ public class AQ_1{
 			
 			//upload button
 			
-			driver.findElement(By.id("uploadProgramItem:j_idt86")).sendKeys(RFQ.PRICER);
+			driver.findElement(By.id("uploadProgramItem:j_idt86")).sendKeys(RFQ_SUB.PRICER);
 			
 			driver.findElement(By.id("uploadProgramItem:j_idt87")).click();
 			

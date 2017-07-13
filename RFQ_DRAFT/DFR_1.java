@@ -1,10 +1,8 @@
 package RFQ_DRAFT;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -71,7 +69,7 @@ public class DFR_1 {
 	}
 	
 	@Test (description = "Enter RFQ header")
-	public void DRF_1_1(){
+	public void DRF_1_1() throws InterruptedException{
 		
 		System.out.println("============================== Executing DRF/1/1 ==============================");
 
@@ -89,18 +87,25 @@ public class DFR_1 {
 		
 		System.out.println("------------Homepage Web link matched-----------");
 		
+		Actions actions;
 		
-		Actions actions = new Actions(driver);
+		WebElement mainMenu;
 		
-		WebElement mainMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt33']/ul/li[2]/a"));
+		WebElement subMenu;
 		
-		WebElement subMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt33']/ul/li[2]/ul/li[1]/a"));
+		actions = new Actions(driver);
+		
+		 mainMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt33']/ul/li[2]/a"));
+		
+		 subMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt33']/ul/li[2]/ul/li[1]/a"));
 
 		actions.moveToElement(mainMenu);
 		
 		actions.moveToElement(subMenu);
 
 		actions.click().build().perform();
+		
+		Thread.sleep(2000);
 		
 		//verify link
 		
@@ -169,7 +174,10 @@ public class DFR_1 {
 				String[] temp2 = new String[2];
 				temp2 = temp.split(" , ");
 				
-				operation.InputTextID(driver, "form_rfqSubmission:basicDetails_endCustomerNumber_input", "ENTER");
+	
+				
+				operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:basicDetails_endCustomerNumber_panel']/ul/li[1]", 1);
+				//operation.InputTextID(driver, "form_rfqSubmission:basicDetails_endCustomerNumber_input", "ENTER");
 				 				
 				Thread.sleep(1000);
 				
@@ -297,7 +305,7 @@ public class DFR_1 {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 
 		System.out.println("==============Executing DRF_1_5=================");
-
+		
 		Actions actions = new Actions(driver);
 		
 		WebElement mainMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt27']/ul/li[2]/a"));
@@ -311,6 +319,24 @@ public class DFR_1 {
 		actions.click().build().perform();
 		
 		Thread.sleep(2000);
+		
+		while(driver.getCurrentUrl()=="https://emasiaweb-test.avnet.com/webquote3/RFQ/RFQSubmissionLayout.jsf?clear=1") {
+		
+			 actions = new Actions(driver);
+			
+			 mainMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt27']/ul/li[2]/a"));
+			
+			 subMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt27']/ul/li[2]/ul/li[3]/a"));
+
+			actions.moveToElement(mainMenu);
+			
+			actions.moveToElement(subMenu);
+
+			actions.click().build().perform();
+			
+			Thread.sleep(2000);
+		
+		}
 		
 		operation.InputTextID(driver, "form:j_idt84:j_idt99", RFQ.QUOTE[1][6]);
 		

@@ -1,23 +1,18 @@
 package AQ_test;
-import Verification.Veriguide;
-import WebTest.WebTest;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit; 
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import CommonFunction.Operation;
+import Verification.Veriguide;
+import WebTest.WebTest;
 
 public class AQ_v01 extends WebTest{
 
@@ -311,7 +306,7 @@ public class AQ_v01 extends WebTest{
 				 }
 				 else {
 					 
-				     returnpath = operation.captureScreen(driver, "AQ_1_9", returnpath);
+				     returnpath = Operation.captureScreen(driver, "AQ_1_9", returnpath);
 
 					 verification.Veri_Fail("AQ/1/9",QUOTE[i][2],returnpath);
 					 j++;
