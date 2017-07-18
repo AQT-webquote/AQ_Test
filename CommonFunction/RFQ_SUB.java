@@ -22,6 +22,7 @@ public class  RFQ_SUB {
 	public static final String PRICER = "C:\\Users\\045313\\Desktop\\Webtesting\\data\\AutoTest\\GTS_PR_UPLOAD\\pricer_15_records.xlsx";
 	public static final String QC_PRICER = "C:\\Users\\045313\\Desktop\\Workspace\\TestNG_WebTest\\src\\pricer_qc.xlsx";
 	
+	public static final String BATCH_RFQ_FILE = "C:\\Users\\045313\\Desktop\\Webtesting\\data\\AutoTest\\Setup_Data\\RFQ_sub.xlsx";
 	public static final String DOWNLOADFILE = "C:\\Users\\045313\\Downloads\\Download.xlsx";
 	public static final String DOWNLOADSHEET = "Sheet0";
 	public String[] USERInfo = new String[2];

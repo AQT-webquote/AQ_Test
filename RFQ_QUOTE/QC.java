@@ -70,53 +70,7 @@ public class QC {
 
 		}
 		
-		@Test (description = "upload QC pricer")
-		public void NPR_1_1() throws IOException, InterruptedException{
-			
-			Excel_read reader = new Excel_read();
 
-			String [] QC_INFO = new String [2];
-			
-			QC_INFO = reader.readLoginInfo(2); // 1=sales, 2=QC, 3=...
-			
-			System.out.println("============================== Executing NPR/1/1 ==============================");
-
-			operation.Login(driver, QC_INFO);
-			
-			ATUReports.add("Login to QC account", false);
-			
-			//mouse hover to span menu
-			
-			Actions actions = new Actions(driver);
-			
-			WebElement mainMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt29']/ul/li[3]/a"));
-			actions.moveToElement(mainMenu);
-
-			WebElement subMenu = driver.findElement(By.xpath("//*[@id='menu_form:j_idt29']/ul/li[3]/ul/li[1]/a"));
-			actions.moveToElement(subMenu);
-			actions.click().build().perform();
-			
-			ATUReports.add("Go to upload pricer page", true);
-			
-			//dropdown menu	
-			
-			Select dropdown = new Select(driver.findElement(By.id("uploadProgramItem:action")));
-			
-			dropdown.selectByVisibleText("ADD/UPDATE");
-			
-			//upload button
-			
-			driver.findElement(By.id("uploadProgramItem:j_idt86")).sendKeys(RFQ_SUB.QC_PRICER);
-			
-			driver.findElement(By.id("uploadProgramItem:j_idt87")).click();
-			
-			Thread.sleep(2000);
-			
-			operation.Logout(driver);
-		}
-		
-		
-	
 	@Test (description = "go to RFQ submission page")
 	public void QC_1_1() {
 		
@@ -187,7 +141,8 @@ public class QC {
 	
 	@Test (description = "able to enter mandatory field")
 	public void QC_1_2() throws InterruptedException {
-		
+		System.out.println("============================== Executing QC/1/2 ==============================");
+
 		//sold to code
 		
 		operation.InputTextID(driver, "form_rfqSubmission:basicDetails_soldToCustomerNumber", RFQ.QUOTE[1][6]);
@@ -227,17 +182,29 @@ public class QC {
 		
 	}
 	
-	@Test (description="click magnifer icon to search for ")
+	@Test (description="")
 	public void QC_1_3() throws InterruptedException {
+		
+		System.out.println("============================== Executing QC/1/3 ==============================");
 		
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 
-		operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:mfr_in", RFQ.QUOTE[0][1]);
 		
-		operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:requiredPartNumber_in", 1);
+		//upload function
+	     operation.InputTextID(driver, "form_rfqSubmission:j_idt194", RFQ.BATCH_RFQ_FILE);
+	     operation.ClickElementID(driver, "form_rfqSubmission:uploadButton", 1);
 		
-		operation.InputTextID(driver, "id=\"form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:requiredPartNumber_in_input\"", RFQ.QUOTE[0][2]);
+	     /*
+		//wait for visibility of dropdown menu
+		 wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:mfr_in")));
+		 //MRF 
+		 operation.DropMenuID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:mfr_in", RFQ.QUOTE[0][0]);
 		
+		 //P/N
+		 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr[1]/td[5]", 3);
+		 				 
+		 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:requiredPartNumber_in_input']", RFQ.QUOTE[0][1]);
+		 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:requiredPartNumber_in_panel']/ul/li[1]")));
 		 System.out.println("Begin selecting correct P/N");
 		 //choose dropdown	, search for correct row
@@ -251,6 +218,8 @@ public class QC {
 				 //wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":requiredPartNumber_in_panel']/ul/li/span"), RFQ.QUOTE[i][1]));
 		    	 Actions builder = new Actions(driver);
 		    	 builder.moveToElement(option).build().perform();
+		    	 builder.moveToElement(option).build().perform();
+
 				 //ATUReports.add("Click on corresponding P/N in dropdown menu", RFQ.QUOTE[i][1], true);
 
 		     }
@@ -272,44 +241,47 @@ public class QC {
 			 
 			 Thread.sleep(3000);
 
-			 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr[1]/td[12]", 0);
+			 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:j_idt229\']", 0);
 			 
 			 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_requiredQty_in']", RFQ.QUOTE[0][36]);
 			 
 			 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_requiredQty_in']", "ENTER");
 		     
-			 Thread.sleep(1000);
+			 Thread.sleep(3000);
 			 
 			 //target resale
 			 
-			 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_targetResale_out", 1);
+			 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[1]/td[12]", 1);
 			 
-			 operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_targetResale_in", RFQ.QUOTE[0][38]);
+			 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_targetResale_in\']", RFQ.QUOTE[0][38]);
 			 
-			 operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_targetResale_in", "ENTER");
+			 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_targetResale_in\']", "ENTER");
 			 
 			 //application
 			 
-			 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_application", 1);
+			 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[1]/td[33]", 1);
 			 
-			 operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_application_input", RFQ.QUOTE[0][23]);
+			 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_application_input\']", RFQ.QUOTE[0][23]);
 
 			 //EAU
 			 
-			 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:j_idt228", 1);
+			 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[1]/td[13]", 1);
 			 
-			 operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_eau_in", RFQ.QUOTE[0][37]);
+			 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:basicDetails_input_eau_in\']", RFQ.QUOTE[0][37]);
 			 
-			 
+			 */
+			 Thread.sleep(2000);
 	}
-	
+	/*
 	@Test (description= "click magnifer to search for pricer info")
 	public void QC_1_4() throws InterruptedException {
 		
+		System.out.println("============================== Executing QC/1/4 ==============================");
+
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 
 		//click on magnifier
-		 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:0:j_idt203",4);
+		 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:j_idt203",4);
 		 
 		 ATUReports.add("Click on magnifier", false);
 		 
@@ -322,24 +294,196 @@ public class QC {
 		 
 		 Select select = new Select(selectElement);
 		 
-		 select.selectByVisibleText(RFQ.QUOTE[0][0]);
+		 select.selectByVisibleText(RFQ.QUOTE[1][0]);
 		 
-		 ATUReports.add("Select MRF dropdown list",RFQ.QUOTE[0][0], false);
+		 ATUReports.add("Select MRF dropdown list",RFQ.QUOTE[1][0], false);
 		 
 		 //fill in text field in sub window
 		 
-		 operation.InputTextID(driver, "form_rfqSubmission_partNumber:j_idt685",RFQ.QUOTE[0][1]);
+		 operation.InputTextID(driver, "form_rfqSubmission_partNumber:j_idt685",RFQ.QUOTE[1][1]);
 		 
 		 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission_partNumber:validation_expansion_SearchButton']", 0);
 
-		 ATUReports.add("Input P/N and click search button",RFQ.QUOTE[0][0], false);
+		 ATUReports.add("Input P/N and click search button",RFQ.QUOTE[1][0], false);
 		 
+		//required quantity
+		 
+		 Thread.sleep(3000);
+
+		 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr[2]/td[12]", 0);
+		 
+		 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_requiredQty_in']", RFQ.QUOTE[1][36]);
+		 
+		 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_requiredQty_in']", "ENTER");
+	     
+		 Thread.sleep(1000);
+		 
+		 //target resale
+		 
+		 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[2]/td[12]", 1);
+		 
+		 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_targetResale_in\']", "0.000001");
+		 
+		 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_targetResale_in\']", "ENTER");
+		 //application
+		 
+		 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[2]/td[33]", 1);
+		 
+		 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_application_input\']", RFQ.QUOTE[1][23]);
+
+		 //EAU
+		 
+		 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[2]/td[13]", 1);
+		 
+		 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:1:basicDetails_input_eau_in\']", RFQ.QUOTE[1][37]);
+		 
+		 //3rd item Tick SFQ
+		 
+		 	operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:select_id_basicDetails_specialPriceIndicator\']/div[2]/span", 1);
+		 
+		 	operation.InputTextID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:mfr_in", RFQ.QUOTE[2][1]);
+			
+			operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in", 1);
+			
+			operation.InputTextID(driver, "id=\"form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in_input\"", RFQ.QUOTE[2][2]);
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in_panel']/ul/li[1]")));
+			 System.out.println("Begin selecting correct P/N");
+			 //choose dropdown	, search for correct row
+			 String searchText = RFQ.QUOTE[2][1]+" || "+RFQ.QUOTE[2][0];
+			 WebElement dropdown = driver.findElement(By.id("form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in_panel"));
+			 List<WebElement> options = dropdown.findElements(By.tagName("li"));
+			 for (WebElement option : options)
+			 {
+			     if (option.getText().equals(searchText))
+			     {
+					 //wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":requiredPartNumber_in_panel']/ul/li/span"), RFQ.QUOTE[i][1]));
+			    	 Actions builder = new Actions(driver);
+			    	 builder.moveToElement(option).build().perform();
+					 //ATUReports.add("Click on corresponding P/N in dropdown menu", RFQ.QUOTE[i][1], true);
+
+			     }
+			 }
+			 System.out.println("Selected ");
+
+			 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in_panel']/ul/li[1]")));
+			 System.out.println("awaiting auto complete jquery");
+
+			 // wait for auto-fill function within dropdown menu
+			
+				 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr[3]/td[5]", 3);
+				 
+				 wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:requiredPartNumber_in_panel']/ul/li/span"), RFQ.QUOTE[2][1]));
+			 
+				 //ATUReports.add("Wait for autofill query", RFQ.QUOTE[i][1],driver.findElement(By.xpath("//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":requiredPartNumber_in_panel']/ul/li/span")).getText(), true);
 		
+				//required quantity
+				 
+				 Thread.sleep(3000);
+
+				 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr[3]/td[12]", 0);
+				 
+				 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_requiredQty_in']", RFQ.QUOTE[2][36]);
+				 
+				 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_requiredQty_in']", "ENTER");
+			     
+				 Thread.sleep(1000);
+		 
+				//target resale
+				 
+				 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[3]/td[12]", 1);
+				 
+				 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_targetResale_in\']", RFQ.QUOTE[2][38]);
+				 
+				 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_targetResale_in\']", "ENTER");
+				 
+				 //application
+				 
+				 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[3]/td[33]", 1);
+				 
+				 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_application_input\']", RFQ.QUOTE[2][23]);
+
+				 //EAU
+				 
+				 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr[3]/td[13]", 1);
+				 
+				 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:2:basicDetails_input_eau_in\']", RFQ.QUOTE[2][37]);
+				 
+				 
+				 Thread.sleep(2000);
+				 
+				 if(RFQ.quote_count>3) {
+					 
+					 for(int i=3;i<RFQ.quote_count;i++) {
+						 
+						//click on magnifier
+						 operation.ClickElementID(driver, "form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":j_idt203",4);
+						 
+						 ATUReports.add("Click on magnifier", false);
+						 
+						// trigger web element in sub window
+						  triggerDropDown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("form_rfqSubmission_partNumber:alternatePartSearch_panel_content")));
+						 
+						 triggerDropDown.click();
+						 
+						  selectElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("form_rfqSubmission_partNumber:j_idt680")));
+						 
+						  select = new Select(selectElement);
+						 
+						 select.selectByVisibleText(RFQ.QUOTE[i][0]);
+						 
+						 ATUReports.add("Select MRF dropdown list",RFQ.QUOTE[i][0], false);
+						 
+						 //fill in text field in sub window
+						 
+						 operation.InputTextID(driver, "form_rfqSubmission_partNumber:j_idt685",RFQ.QUOTE[i][1]);
+						 
+						 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission_partNumber:validation_expansion_SearchButton']", 0);
+
+						 ATUReports.add("Input P/N and click search button",RFQ.QUOTE[i][0], false);
+						 
+						//required quantity
+						 
+						 Thread.sleep(3000);
+
+						 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission_data']/tr["+(i+1)+"]/td[12]", 0);
+						 
+						 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":basicDetails_input_requiredQty_in']", RFQ.QUOTE[i][36]);
+						 
+						 operation.InputTextXP(driver, "//*[@id='form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":basicDetails_input_requiredQty_in']", "ENTER");
+					     
+						 Thread.sleep(1000);
+						 
+						 //target resale
+						 
+						 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr["+(i+1)+"]/td[12]", 1);
+						 
+						 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":basicDetails_input_targetResale_in\']", "0.00001");
+						 
+						 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+i+":basicDetails_input_targetResale_in\']", "ENTER");
+						 
+						 //application
+						 
+						 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr["+(i+1)+"]/td[33]", 1);
+						 
+						 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+(i+1)+":basicDetails_input_application_input\']", RFQ.QUOTE[i][23]);
+
+						 //EAU
+						 
+						 operation.ClickElementXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission_data\']/tr["+(i+1)+"]/td[13]", 1);
+						 
+						 operation.InputTextXP(driver, "//*[@id=\'form_rfqSubmission:datatable_basicDetails_rfqSubmission:"+(i+1)+":basicDetails_input_eau_in\']", RFQ.QUOTE[i][37]);
+						 
+					 }
+					 
+				 }
 	}
 	
 	@Test(description="")
 	public void QC_1_5() throws InterruptedException {
 		
+		System.out.println("============================== Executing QC/1/5 ==============================");
+
 		 WebDriverWait wait = new WebDriverWait(driver, 40);
 
 		//checkbox in sub window
@@ -353,6 +497,7 @@ public class QC {
 		 operation.ClickElementXP(driver, "//*[@id='form_rfqSubmission_partNumber:validation_expansion_SelectButton']/span", 3);
 			
 	}
+	*/
 	
 	@Test (description = "Move to DRMS Match")
 	public void QC_1_6() throws InterruptedException{
@@ -373,7 +518,7 @@ public class QC {
 	}
 	
 	@Test ( description = "Move to [confirmation] page")
-	public void QC1_8() throws InterruptedException{
+	public void QC_1_8() throws InterruptedException{
 		
 		System.out.println("============================== Executing QC/1/8 ==============================");
 
@@ -406,6 +551,7 @@ public class QC {
 				
 			RFQ.QUOTE_DL = new String[RFQ.quote_count][12]; // set the size of QUOTE array 
 				
+			RFQ.quote_count_DL=0;
 					 
 			boolean displayed;
 			
@@ -433,17 +579,17 @@ public class QC {
 				 Quote_No = driver.findElement(By.xpath("//*[@id='form_rfqSubmission:datatable_confirmation_rfqSubmission_data']/tr["+j+"]/td[3]")).getText();
 				 RFQ.QUOTE_DL[i][0] = Form_No;
 				 RFQ.QUOTE_DL[i][1] = Quote_No;
+				 RFQ.quote_count_DL++;
+				 assertEquals(QC_STATUS,"QC");
 				 
-				 assertEquals(QC_STATUS,"AQ");
-				 
-				 assertEquals(QUOTE_STAGE,"FINISH");
+				 assertEquals(QUOTE_STAGE,"PENDING");
 					 
 				 assertEquals(displayed, true);
 				 
 
 					Thread.sleep(1000);
 
-					 ATUReports.add("Check RFQ status and Quote stage", "AQ+FINISH", "P/N: "+PN+" AQ staus: "+QC_STATUS+" Finish status: "+QUOTE_STAGE, false);
+					 ATUReports.add("Check RFQ status and Quote stage", "QC+PENDING", "P/N: "+PN+" AQ staus: "+QC_STATUS+" Finish status: "+QUOTE_STAGE, false);
 						
 					 Thread.sleep(1000);
 
@@ -460,7 +606,7 @@ public class QC {
 					 
 				 }
 			 
-			 driver.close();
+			// driver.close();
 		 
 
 	}
@@ -479,8 +625,6 @@ public class QC {
 			
 			QC_INFO = reader.readLoginInfo(2); // 1=sales, 2=QC, 3=...
 			
-			System.out.println("============================== Executing NPR/1/1 ==============================");
-
 			operation.Login(driver, QC_INFO);
 			
 			ATUReports.add("Login to QC account", false);
@@ -489,10 +633,10 @@ public class QC {
 			
 			Actions actions = new Actions(driver);
 			
-			WebElement mainMenu = driver.findElement(By.xpath("//*[@id=\'menu_form:j_idt27\']/ul/li[2]/a"));
+			WebElement mainMenu = driver.findElement(By.xpath("//*[@id=\'menu_form:j_idt29\']/ul/li[2]/a"));
 			actions.moveToElement(mainMenu);
 
-			WebElement subMenu = driver.findElement(By.xpath("//*[@id=\'menu_form:j_idt27\']/ul/li[2]/ul/li[12]/a"));
+			WebElement subMenu = driver.findElement(By.xpath("//*[@id=\'menu_form:j_idt29\']/ul/li[2]/ul/li[5]/a"));
 			actions.moveToElement(subMenu);
 			actions.click().build().perform();
 		 
@@ -505,34 +649,75 @@ public class QC {
 	@Test (description = "find the quote in qc/1/8 by form # and quote # ")
 	public void QC_2_2() throws InterruptedException {
 		
-		 WebDriverWait wait = new WebDriverWait(driver, 25);
+		 WebDriverWait wait = new WebDriverWait(driver, 70);
+
+		 
+
+		 operation.DropMenuXP(driver, "//*[@id=\"form_pendinglist:SearchCriteriaPanel:j_idt78\"]/table/tbody/tr/td[8]/select", "ALL");
+		 
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id( "form_pendinglist:j_idt455")));
+		 
+		 operation.ClickElementID(driver, "form_pendinglist:j_idt455", 2);
+		 
+		 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist_dialog:j_idt629\']")));
 
 		 //form no
 		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:j_idt108:filter", RFQ.QUOTE_DL[0][0]);
 		 
 		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:j_idt108:filter", "ENTER");
 		 
+		 Thread.sleep(2000);
+
 		 //quote no
 		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:j_idt111:filter", RFQ.QUOTE_DL[0][1]);
 
 		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:j_idt111:filter", "ENTER");
-
-		 operation.ClickElementXP(driver, "//*[@id=\'form_pendinglist:datatable_pendinglist_data\']/tr[1]/td[1]/div/div[2]/span", 1);
 		 
+		 Thread.sleep(4000);
+		 
+		 WebElement textbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist:datatable_pendinglist_data\']/tr[1]/td[2]")));
+		 
+		 wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\'form_pendinglist:datatable_pendinglist_data\']/tr[1]/td[2]"), RFQ.QUOTE_DL[0][0]));
+			 
+		
+		// while((driver.findElement(By.xpath("//*[@id=\'form_pendinglist:datatable_pendinglist_data\']/tr[1]/td[2]")).getText())!=RFQ.QUOTE_DL[0][0])
+		 
+		 WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist:datatable_pendinglist:j_idt107\']/div/div[2]/span")));
+		 
+		 checkbox.click();		 
+		 
+		 Thread.sleep(3000);
+		 
+		 for(int i=0; i <RFQ.quote_count_DL-1;i++) {
+			 
+		 //operation.ClickElementID(driver, "form_pendinglist:datatable_pendinglist:"+i+":p_quotedPrice", 1);
+		 
+		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:"+i+":p_quotedPrice", "1");
+		 
+		 operation.InputTextID(driver, "form_pendinglist:datatable_pendinglist:"+i+":p_quotedPrice", "ENTER");
+		 
+		 Thread.sleep(3000);
+		 
+		 }
 		 //proceed quote
 		 operation.ClickElementID(driver, "form_pendinglist:j_idt459", 4);
 		 
-		 operation.ClickElementID(driver, "form_pendinglist_dialog:datatable_quotation_warning:0:j_idt544", 1);
-		 
-		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("form_pendinglist_dialog:quotaton_validation_submitButton")));
-		 
-		 operation.ClickElementID(driver, "form_pendinglist_dialog:quotaton_validation_submitButton", 2);
-		 
-		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("form_pendinglist_dialog:quotaton_validation_email_submitButton")));
+		 for(int i=0; i <RFQ.quote_count_DL-1;i++) {
 
-		 operation.ClickElementID(driver, "form_pendinglist_dialog:quotaton_validation_email_submitButton", 2);
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist_dialog:datatable_quotation_warning:"+i+":j_idt544\']/div[2]/span")));
+
+		 operation.ClickElementXP(driver, "//*[@id=\'form_pendinglist_dialog:datatable_quotation_warning:"+i+":j_idt544\']/div[2]/span", 1);
+		 }
 		 
-		 assertEquals(driver.getCurrentUrl(),"https://emasiaweb-test.avnet.com/webquote3/WorkingPlatform/WorkingPlatformLayout.jsf");
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist_dialog:quotaton_validation_submitButton\']/span")));
+		 
+		 operation.ClickElementXP(driver,"//*[@id=\'form_pendinglist_dialog:quotaton_validation_submitButton\']/span",1);
+		 
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'form_pendinglist_dialog:datatable_proceed_quotation_data\']/tr/td[2]")));
+		
+		 ATUReports.add("final screenshot", true);
+		 
+		 assertEquals(driver.findElement(By.xpath("//*[@id=\'form_pendinglist_dialog:datatable_proceed_quotation_data\']/tr/td[2]")).getText(), RFQ.QUOTE_DL[0][0]);
 		 
 		 
 	}
